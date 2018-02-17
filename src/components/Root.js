@@ -1,21 +1,18 @@
-import React, { Component } from 'react'
-import {Provider} from 'react-redux'
-import store from '../redux'
-import App from './App'
-//import {BrowserRouter as Router} from 'react-router-dom'
-import {ConnectedRouter as Router} from 'react-router-redux'
-import history from '../history'
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from '../redux';
+import App from './App';
+import { ConnectedRouter as Router } from 'react-router-redux';
+import history from '../history';
 
 class Root extends Component {
-    static propTypes = {
-
-    };
+    static propTypes = {};
 
     render() {
         return (
             <Provider store={store}>
-                <Router history = {history}>
-                    <App />
+                <Router history={history}>
+                    <App/>
                 </Router>
             </Provider>
         )
