@@ -4,11 +4,6 @@ import styled from 'styled-components';
 import bemto from 'bemto-components';
 import BlogListItem from './BlogListItem';
 
-const BlogListStyled = styled(bemto('ul', {}))`
-padding: 0;
-margin: 0;
-`;
-
 class BlogList extends Component {
 
     onClick = (ev) => {
@@ -41,3 +36,9 @@ BlogList.propTypes = {
 };
 
 export default BlogList;
+
+/* styles */
+var BlogListStyled = styled(bemto('ul', {}))`
+padding: 0;
+margin: 0;
+`;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PageContainer from '../common/PageContainer';
+import AddUserForm from '../blog/AddUserForm';
 import BlogListFiltrationPanel from '../blog/BlogListFiltrationPanel';
 import BlogList from '../blog/BlogList';
 
@@ -32,6 +33,7 @@ class Start extends Component {
         return (
             <PageContainer>
                 <h2>Start Page</h2>
+                <AddUserForm/>
                 <BlogListFiltrationPanel/>
                 <BlogList list={list}/>
             </PageContainer>

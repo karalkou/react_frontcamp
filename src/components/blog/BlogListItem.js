@@ -3,7 +3,28 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
 
-const BlogListItemStyled = styled(bemto({
+class BlogListItem extends Component {
+    render() {
+        const { item: {title, body, author}, onClick } = this.props;
+
+        return (
+            <BlogListItemStyled
+                __del={ <span onClick={onClick}>X</span>}
+                __title={ `${title}` }
+                __body={ `${body ? body: ''}` }
+                __author={ `${author}` }
+            />
+        );
+    }
+}
+
+BlogListItem.propTypes = {};
+BlogListItem.defaultProps = {};
+
+export default BlogListItem;
+
+/* styles */
+var BlogListItemStyled = styled(bemto({
     content: [
         {
             elem: 'del',
@@ -59,22 +80,4 @@ background-color: white;
 }
 `;
 
-class BlogListItem extends Component {
-    render() {
-        const { item: {title, body, author}, onClick } = this.props;
 
-        return (
-            <BlogListItemStyled
-                __del={ <span onClick={onClick}>X</span>}
-                __title={ `${title}` }
-                __body={ `${body ? body: ''}` }
-                __author={ `${author}` }
-            />
-        );
-    }
-}
-
-BlogListItem.propTypes = {};
-BlogListItem.defaultProps = {};
-
-export default BlogListItem;
