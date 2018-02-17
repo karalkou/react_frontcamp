@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
 
-class AddUserForm extends Component {
+class AddArticleForm extends Component {
     state = {
         title: '',
         body: ''
@@ -28,7 +28,7 @@ class AddUserForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.props.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <div>
                     <input value={this.state.title} onChange={this.handleChange('title')}/>
                 </div>
@@ -43,11 +43,11 @@ class AddUserForm extends Component {
     }
 }
 
-AddUserForm.propTypes = {};
-AddUserForm.defaultProps = {};
+AddArticleForm.propTypes = {};
+AddArticleForm.defaultProps = {};
 
-export default AddUserForm;
+export default AddArticleForm;
 
 /* styles */
-var AddUserFormStyled = styled(bemto({}))``;
+var AddArticleFormStyled = styled(bemto({}))``;
 
