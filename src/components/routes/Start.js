@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PageWrapper from '../common/PageWrapper';
 import PageContainer from '../common/PageContainer';
 import BlogListFiltrationPanel from '../blog/BlogListFiltrationPanel';
 import BlogList from '../blog/BlogList';
@@ -31,13 +30,11 @@ class Start extends Component {
 
     render() {
         return (
-            <PageWrapper>
-                <PageContainer>
-                    <h2>Start Page</h2>
-                    <BlogListFiltrationPanel/>
-                    <BlogList list={list}/>
-                </PageContainer>
-            </PageWrapper>
+            <PageContainer>
+                <h2>Start Page</h2>
+                <BlogListFiltrationPanel/>
+                <BlogList list={list}/>
+            </PageContainer>
         )
     }
 }
