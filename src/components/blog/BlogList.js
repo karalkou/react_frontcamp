@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
 import { connect } from 'react-redux';
-import { loadAllArticles } from '../../ducks/articles';
+import { loadAllArticles, removeArticle } from '../../ducks/articles';
 import BlogListItem from './BlogListItem';
 import { mapToArr } from "../../utils";
 
@@ -16,8 +16,8 @@ class BlogList extends Component {
         }
     }
 
-    onClick = (ev) => {
-        console.log('ev.type: ', ev.type);
+    onClick = (id) => (ev) => {
+        this.props.removeArticle(id);
     };
 
     render() {
@@ -28,7 +28,7 @@ class BlogList extends Component {
                 <BlogListItem
                     key={item.id}
                     item={item}
-                    onClick={this.onClick}
+                    onClick={this.onClick(item.id)}
                 />
             );
         });
@@ -47,7 +47,7 @@ export default connect(
             list: mapToArr(state.articles.entities)
         };
     },
-    { loadAllArticles }
+    { loadAllArticles, removeArticle}
 )(BlogList);
 
 /* styles */

@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import bemto from 'bemto-components';
 
 class BlogListItem extends Component {
+
     render() {
-        const { item: {title, body, author}, onClick } = this.props;
+        const { item: {title, body, author, id}, onClick } = this.props;
 
         return (
             <BlogListItemStyled
