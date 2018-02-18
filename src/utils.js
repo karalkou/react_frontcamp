@@ -11,3 +11,7 @@ export function arrayToMap(arr, Model) {
 export function mapToArr(map) {
     return map.valueSeq().toArray()
 }
+
+export function generateId() {
+    return Date.now()
+}

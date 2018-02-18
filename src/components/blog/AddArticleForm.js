@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
+import { addArticle } from '../../ducks/articles';
 
 class AddArticleForm extends Component {
     state = {
@@ -12,13 +14,12 @@ class AddArticleForm extends Component {
     handleChange = field => ev => {
         this.setState({
             [field]: ev.target.value
-        })
+        });
     };
 
     handleSubmit = ev => {
         ev.preventDefault();
-        // const { articleId, addComment } = this.props;
-        // addComment(this.state, articleId);
+        this.props.addArticle(this.state);
 
         this.setState({
             title: '',
@@ -46,7 +47,10 @@ class AddArticleForm extends Component {
 AddArticleForm.propTypes = {};
 AddArticleForm.defaultProps = {};
 
-export default AddArticleForm;
+export default connect(
+    null,
+    { addArticle }
+)(AddArticleForm);
 
 /* styles */
 var AddArticleFormStyled = styled(bemto({}))``;

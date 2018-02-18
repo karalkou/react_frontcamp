@@ -2,8 +2,9 @@ import { appName } from '../config';
 import { Map, Record } from 'immutable';
 import { arrayToMap } from '../utils';
 // import { createSelector } from 'reselect';
-// import { call, put, all, take } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 // import { replace } from 'react-router-redux';
+import { generateId } from "../utils";
 
 /**
  * Constants
@@ -12,6 +13,7 @@ export const moduleName = 'articles';
 const prefix = `${appName}/${moduleName}`;
 
 export const LOAD_ALL_ARTICLES = `${prefix}/LOAD_ALL_ARTICLES`;
+export const ADD_ARTICLE_REQUEST = `${prefix}/ADD_ARTICLE_REQUEST`;
 export const ADD_ARTICLE = `${prefix}/ADD_ARTICLE`;
 export const REMOVE_ARTICLE = `${prefix}/REMOVE_ARTICLE`;
 
@@ -22,7 +24,7 @@ const mockResponse = [
     {
         createdAt: "2018-02-03T04:41:45.586Z",
         updatedAt: "2018-02-03T04:41:45.586Z",
-        _id: "5a753d89aa7586161cef2403",
+        id: "5a753d89aa7586161cef2403",
         title: "Zhabinsky's birthday note",
         author: "Yury Karalkou",
         views: 1,
@@ -44,7 +46,7 @@ const mockResponse = [
 const ArticleModel = Record({
     createdAt: null,
     updatedAt: null,
-    _id: null,
+    id: null,
     title: null,
     author: null,
     views: null,
@@ -57,7 +59,7 @@ export const ReducerRecord = Record({
 });
 
 export default function reducer(state = new ReducerRecord(), action) {
-    const { type, payload, randomId } = action;
+    const { type, payload } = action;
 
     switch (type) {
         case LOAD_ALL_ARTICLES:
@@ -66,8 +68,9 @@ export default function reducer(state = new ReducerRecord(), action) {
                 .set('entities', arrayToMap(mockResponse, ArticleModel));
 
         case ADD_ARTICLE:
+            console.log('payload: ', payload);
             return state
-                .updateIn(['entities'], entities => entities.concat(randomId));
+                .setIn(['entities', payload.id], new ArticleModel(payload));
 
         case REMOVE_ARTICLE:
             return state
@@ -91,10 +94,10 @@ export function loadAllArticles() {
     }
 }
 
-export function addArticle(title, body) {
+export function addArticle(formStateObj) {
     return {
-        type: ADD_ARTICLE,
-        payload: { title, body }
+        type: ADD_ARTICLE_REQUEST,
+        payload: formStateObj
     }
 }
 
@@ -108,6 +111,20 @@ export function removeArticle(id) {
 /**
  * Sagas
  **/
-// export function * saga() {
-//     yield
-// }
+export function * addArcticleSaga(action) {
+    const id = yield call(generateId);
+
+    const effect = put({
+        type: ADD_ARTICLE,
+        payload: { id, ...action.payload }
+    });
+
+    console.log('---', effect);
+
+    yield effect;
+}
+
+export function * saga() {
+    console.log('---', 'saga up and running');
+    yield takeEvery(ADD_ARTICLE_REQUEST, addArcticleSaga)
+}

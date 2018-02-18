@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import bemto from 'bemto-components';
 import { connect } from 'react-redux';
@@ -26,7 +26,7 @@ class BlogList extends Component {
         const listItems = list.map((item) => {
             return (
                 <BlogListItem
-                    key={item._id}
+                    key={item.id}
                     item={item}
                     onClick={this.onClick}
                 />
@@ -43,7 +43,6 @@ class BlogList extends Component {
 
 export default connect(
     (state) => {
-        console.log('--- state: ', mapToArr(state.articles.entities));
         return {
             list: mapToArr(state.articles.entities)
         };
