@@ -43,9 +43,32 @@ class BlogList extends Component {
 
 export default connect(
     (state) => {
+        console.log('state: ', state);
+        const { filters } = state;
+        const list = mapToArr(state.articles.entities);
+        const { byAuthorAlphabet: { direction, isSorted } } = filters;
+
+        let filteredArticles;
+
+        if ( isSorted ) {
+            filteredArticles = [...list].sort((a, b) => {
+                if (direction === 1) {
+                    if (a.author.toLowerCase() < b.author.toLowerCase()) return -1;
+                    if (a.author.toLowerCase() > b.author.toLowerCase()) return 1;
+                } else if (direction === -1) {
+                    if (a.author.toLowerCase() < b.author.toLowerCase()) return 1;
+                    if (a.author.toLowerCase() > b.author.toLowerCase()) return -1;
+                }
+            });
+
+            return {
+                list: filteredArticles
+            }
+        }
+
         return {
-            list: mapToArr(state.articles.entities)
-        };
+            list
+        }
     },
     { loadAllArticles, removeArticle}
 )(BlogList);
