@@ -32,14 +32,14 @@ class BlogListFiltrationPanel extends Component {
         const { byAuthorAlphabetState: { direction, isSorted } } = this.props;
 
         return (
-            <div>
+            <div style={ { marginBottom: '15px' } }>
                 <span>By author: </span>
                 <span onClick={this.sortByAuthorAlphabet}>
                     {
                         isSorted
                             ? direction === 1
-                                ? <span style={{color: 'blue'}}>z-a</span>
-                                : <span style={{color: 'blue'}}>a-z</span>
+                            ? <span style={{color: 'blue'}}>z-a</span>
+                            : <span style={{color: 'blue'}}>a-z</span>
                             : <span>a-z</span>
                     }
                 </span>
