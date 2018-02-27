@@ -1,7 +1,6 @@
 import { appName } from '../config';
-import { Map, Record } from 'immutable';
-import { arrayToMap } from '../utils';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { Record } from 'immutable';
+// import { call, put, takeEvery } from 'redux-saga/effects';
 
 /**
  * Constants
