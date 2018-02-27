@@ -14,26 +14,22 @@ export const FILTER_BY_AUTHOR_ALPHABET = `${prefix}/FILTER_BY_AUTHOR_ALPHABET`;
 /**
  * Reducer
  * */
+const byAuthorAlphabetModel = Record({
+    isSorted: false,
+    direction: -1
+});
 
-const defaultFilters = {
-    byAuthorAlphabet: {
-        isSorted: false,
-        direction: -1
-    }
-};
+export const ReducerRecord = Record({
+    byAuthorAlphabet: new byAuthorAlphabetModel()
+});
 
-export default function reducer(state = defaultFilters, action) {
+export default function reducer(state = new ReducerRecord(), action) {
     const { type, payload } = action;
 
     switch (type) {
         case FILTER_BY_AUTHOR_ALPHABET:
-            return {
-                ...state,
-                byAuthorAlphabet: {
-                    ...state.byAuthorAlphabet,
-                    ...payload
-                }
-            };
+            return state
+                .setIn(['byAuthorAlphabet'], new byAuthorAlphabetModel(payload));
 
         default:
             return state;
