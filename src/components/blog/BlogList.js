@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import bemto from 'bemto-components';
 import { connect } from 'react-redux';
 import { loadAllArticles, removeArticle } from '../../ducks/articles';
+import { filteredArticlesSelector } from '../../ducks/filters';
 import BlogListItem from './BlogListItem';
 import { mapToArr } from "../../utils";
 
@@ -43,32 +44,9 @@ class BlogList extends Component {
 
 export default connect(
     (state) => {
-        console.log('state: ', state);
-        const { filters } = state;
-        const list = mapToArr(state.articles.entities);
-        const { byAuthorAlphabet: { direction, isSorted } } = filters;
-
-        let filteredArticles;
-
-        if ( isSorted ) {
-            filteredArticles = [...list].sort((a, b) => {
-                if (direction === 1) {
-                    if (a.author.toLowerCase() < b.author.toLowerCase()) return -1;
-                    if (a.author.toLowerCase() > b.author.toLowerCase()) return 1;
-                } else if (direction === -1) {
-                    if (a.author.toLowerCase() < b.author.toLowerCase()) return 1;
-                    if (a.author.toLowerCase() > b.author.toLowerCase()) return -1;
-                }
-            });
-
-            return {
-                list: filteredArticles
-            }
-        }
-
         return {
-            list
-        }
+            list: filteredArticlesSelector(state),
+        };
     },
     { loadAllArticles, removeArticle}
 )(BlogList);
